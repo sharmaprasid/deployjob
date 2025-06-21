@@ -20,53 +20,6 @@ const MyApplications = () => {
     }
   }, [isAuthorized, navigateTo]);
 
-  // useEffect(() => {
-  //   try {
-  //     if (user && user.role === "Employer") {
-  //       axios
-  //       .get(`${import.meta.env.VITE_APP_API_URL}/application/jobseeker/getall`, {
-  //         withCredentials: true,
-  //       })
-  //         .then((res) => {
-  //           setApplications(res.data.applications);
-  //         });
-  //     } else {
-  //       axios
-  //         .get(${import.meta.env.VITE_APP_API_URL}/application/jobseeker/getall`,
-  //           {
-  //             withCredentials: true,
-  //           }
-  //         )
-  //         .then((res) => {
-  //           setApplications(res.data.applications);
-  //         });
-  //     }
-  //   } catch (error) {
-  //     toast.error(error.response.data.message);
-  //   }
-  // }, [isAuthorized]);
-
-  // if (!isAuthorized) {
-  //   navigateTo("/");
-  // }
-
-  // const deleteApplication = (id) => {
-  //   try {
-  //     axios
-  //       .delete(`${import.meta.env.VITE_APP_API_URL}/application/delete/${id}`, {
-  //         withCredentials: true,
-  //       })
-  //       .then((res) => {
-  //         toast.success(res.data.message);
-  //         setApplications((prevApplication) =>
-  //           prevApplication.filter((application) => application._id !== id)
-  //         );
-  //       });
-  //   } catch (error) {
-  //     toast.error(error.response.data.message);
-  //   }
-  // };
-
   useEffect(() => {
     const fetchApplications = async () => {
       try {
@@ -91,7 +44,6 @@ const MyApplications = () => {
     fetchApplications();
   }, [isAuthorized, user]);
 
-  // Delete application handler
   const deleteApplication = async (id) => {
     try {
       const res = await axios.delete(
@@ -123,7 +75,7 @@ const MyApplications = () => {
       {user && user.role === "Job Seeker" ? (
         <div className="container">
           <center>
-            <h1>My Applications</h1>
+            <h3>My Applications</h3>
           </center>
           {applications.length <= 0 ? (
             <>
@@ -148,7 +100,7 @@ const MyApplications = () => {
       ) : (
         <div className="container">
           <center>
-            <h1>Applications From Job Seekers</h1>
+            <h3>Applications From Job Seekers</h3>
           </center>
           {applications.length <= 0 ? (
             <>
@@ -172,69 +124,63 @@ export default MyApplications;
 
 const JobSeekerCard = ({ element, deleteApplication, openModal }) => {
   return (
-    <>
-      <div className="job_seeker_card">
-        <div className="detail">
-          <p>
-            <span>Name:</span> {element.name}
-          </p>
-          <p>
-            <span>Email:</span> {element.email}
-          </p>
-          <p>
-            <span>Phone:</span> {element.phone}
-          </p>
-          <p>
-            <span>Address:</span> {element.address}
-          </p>
-          <p>
-            <span>CoverLetter:</span> {element.coverLetter}
-          </p>
-        </div>
-        <div className="resume">
-          <img
-            src={element.resume.url}
-            alt="resume"
-            onClick={() => openModal(element.resume.url)}
-          />
-        </div>
-        <div className="btn_area">
-          <button onClick={() => deleteApplication(element._id)}>Delete Application</button>
-        </div>
+    <div className="application-card glassy">
+      <div className="application-info">
+        <h3>{element.name}</h3>
+        <p>
+          <strong>Email:</strong> {element.email}
+        </p>
+        <p>
+          <strong>Phone:</strong> {element.phone}
+        </p>
+        <p>
+          <strong>Address:</strong> {element.address}
+        </p>
+        <p>
+          <strong>Cover Letter:</strong> {element.coverLetter}
+        </p>
       </div>
-    </>
+      <div className="application-actions">
+        <img
+          src={element.resume.url}
+          alt="Resume"
+          className="resume-img"
+          onClick={() => openModal(element.resume.url)}
+        />
+        <button className="btn-delete" onClick={() => deleteApplication(element._id)}>
+          🗑 Delete
+        </button>
+      </div>
+    </div>
   );
 };
 
 const EmployerCard = ({ element, openModal }) => {
   return (
-    <>
-      <div className="job_seeker_card">
-        <div className="detail">
-          <p>
-            <span>Name:</span> {element.name}
-          </p>
-          <p>
-            <span>Email:</span> {element.email}
-          </p>
-          <p>
-            <span>Phone:</span> {element.phone}
-          </p>
-          <p>
-            <span>Address:</span> {element.address}
-          </p>
-          <p>
-            <span>CoverLetter:</span> {element.coverLetter}
-          </p>
-        </div>
-        <div className="resume">
-          <img
-            src={element.resume.url}
-            alt="resume"
-            onClick={() => openModal(element.resume.url)}
-          />
-        </div>
+    <div className="application-card glassy">
+      <div className="application-info">
+        <h3>{element.name}</h3>
+        <p>
+          <strong>Email:</strong> {element.email}
+        </p>
+        <p>
+          <strong>Phone:</strong> {element.phone}
+        </p>
+        <p>
+          <strong>Address:</strong> {element.address}
+        </p>
+        <p>
+          <strong>Cover Letter:</strong> {element.coverLetter}
+        </p>
       </div>
-    </>
+      <div className="application-actions">
+        <img
+          src={element.resume.url}
+          alt="Resume"
+          className="resume-img"
+          onClick={() => openModal(element.resume.url)}
+        />
+      </div>
+    </div>
   );
 };

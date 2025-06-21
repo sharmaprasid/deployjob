@@ -15,13 +15,12 @@ import PostJob from "./components/Job/PostJob";
 import Footer from "./components/Layout/Footer";
 import Navbar from "./components/Layout/Navbar";
 import NotFound from "./components/NotFound/NotFound";
+import Profile from "./components/Profile/Profile";
 import { Context } from "./main";
 
 const App = () => {
   const { isAuthorized, setIsAuthorized, setUser } = useContext(Context);
   useEffect(() => {
-    console.log(import.meta.env);
-
     const fetchUser = async () => {
       try {
         const response = await axios.get(`${import.meta.env.VITE_APP_API_URL}/user/getuser`, {
@@ -43,6 +42,7 @@ const App = () => {
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/profile" element={<Profile />} />
           <Route path="/" element={<Home />} />
           <Route path="/job/getall" element={<Jobs />} />
           <Route path="/job/:id" element={<JobDetails />} />

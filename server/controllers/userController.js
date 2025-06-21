@@ -73,3 +73,42 @@ export const getUser = catchAsyncErrors((req, res, next) => {
     user,
   });
 });
+
+export const updateUser = catchAsyncErrors(async (req, res, next) => {
+  const userId = req.user._id;
+  const { name, phone, company } = req.body;
+
+  const user = await User.findById(userId);
+  if (!user) {
+    return next(new ErrorHandler("User not found", 404));
+  }
+
+  if (name) user.name = name;
+  if (phone) user.phone = phone;
+
+  if (user.role === "Employer") {
+    if (!user.company) {
+      user.company = {
+        name: "",
+        location: "",
+        industry: "",
+        website: "",
+      };
+    }
+
+    if (company?.name !== undefined) user.company.name = company.name;
+    if (company?.location !== undefined) user.company.location = company.location;
+    if (company?.industry !== undefined) user.company.industry = company.industry;
+    if (company?.website !== undefined) user.company.website = company.website;
+  } else if (company) {
+    return next(new ErrorHandler("Job Seekers are not allowed to modify company data", 403));
+  }
+
+  await user.save();
+
+  res.status(200).json({
+    success: true,
+    message: "Profile updated successfully",
+    user,
+  });
+});

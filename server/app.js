@@ -1,3 +1,4 @@
+import cloudinary from "cloudinary";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import { config } from "dotenv";
@@ -9,9 +10,14 @@ import applicationRouter from "./routes/applicationRoutes.js";
 import companyRouter from "./routes/companyRoutes.js";
 import jobRouter from "./routes/jobRoutes.js";
 import userRouter from "./routes/userRoutes.js";
-
 const app = express();
 config({ path: "./config/config.env" });
+
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
 
 app.use(
   cors({

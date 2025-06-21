@@ -75,6 +75,7 @@ const PostJob = () => {
       )
       .then((res) => {
         toast.success(res.data.message);
+        navigateTo("/job/me");
       })
       .catch((err) => {
         toast.error(err.response.data.message);
