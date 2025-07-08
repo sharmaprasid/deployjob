@@ -21,7 +21,7 @@ cloudinary.config({
 
 app.use(
   cors({
-    origin:' http://localhost:5173',
+    origin:' https://jobportal-ten-pi.vercel.app',
     method: ["GET", "POST", "DELETE", "PUT"],
     credentials: true,
   })
