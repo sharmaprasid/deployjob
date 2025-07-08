@@ -7,7 +7,7 @@ export const sendToken = (user, statusCode, res, message) => {
     ),
     httpOnly: true,
     secure: process.env.NODE_ENV === "production", // only secure in prod
-    sameSite: None
+    sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax", // required for cross-site cookies
   };
 
   res.status(statusCode).cookie("token", token, options).json({
