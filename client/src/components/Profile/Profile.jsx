@@ -26,6 +26,7 @@ const Profile = () => {
         const res = await axios.get(`${import.meta.env.VITE_APP_API_URL}/user/getuser`, {
           withCredentials: true,
         });
+        console.log("Profile data:", res.data.user);
         setProfile(res.data.user);
       } catch (error) {
         console.error("Failed to fetch profile:", error);
@@ -168,30 +169,33 @@ const Profile = () => {
               </label>
 
               <label>
-                Website:
-                {editMode ? (
-                  <input
-                    name="company.website"
-                    value={profile.company?.website || ""}
-                    onChange={handleChange}
-                    className="input-field"
-                  />
-                ) : (
-                  <p className="text-field">
-                    <a
-                      href={
-                        profile.company?.website?.startsWith("http")
-                          ? profile.company.website
-                          : `https://${profile.company.website}`
-                      }
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      {profile.company?.website}
-                    </a>
-                  </p>
-                )}
-              </label>
+  Website:
+  {editMode ? (
+    <input
+      name="company.website"
+      value={profile.company?.website || ""}
+      onChange={handleChange}
+      className="input-field"
+    />
+  ) : profile.company?.website ? (
+    <p className="text-field">
+      <a
+        href={
+          profile.company.website.startsWith("http")
+            ? profile.company.website
+            : `https://${profile.company.website}`
+        }
+        target="_blank"
+        rel="noreferrer"
+      >
+        {profile.company.website}
+      </a>
+    </p>
+  ) : (
+    <p className="text-field">N/A</p>
+  )}
+</label>
+
             </>
           )}
         </div>

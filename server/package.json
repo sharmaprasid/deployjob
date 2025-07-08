@@ -153,8 +153,8 @@
     "sparse-bitfield": "^3.0.3",
     "statuses": "^2.0.1",
     "streamsearch": "^1.1.0",
-    "string-width": "^4.2.3",
     "string_decoder": "^1.3.0",
+    "string-width": "^4.2.3",
     "strip-ansi": "^6.0.1",
     "supports-color": "^5.5.0",
     "tar": "^6.2.0",
@@ -176,7 +176,6 @@
     "wrappy": "^1.0.2",
     "yallist": "^4.0.0"
   },
-  "devDependencies": {},
   "scripts": {
     "start": "nodemon app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
