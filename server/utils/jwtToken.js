@@ -1,5 +1,5 @@
+const token = user.getJWTToken();
 export const sendToken = (user, statusCode, res, message) => {
-  const token = user.getJWTToken();
 
   const options = {
     expires: new Date(
@@ -7,7 +7,7 @@ export const sendToken = (user, statusCode, res, message) => {
     ),
     httpOnly: true,
     secure: process.env.NODE_ENV === "production", // only secure in prod
-    sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax", // required for cross-site cookies
+    sameSite: None
   };
 
   res.status(statusCode).cookie("token", token, options).json({
